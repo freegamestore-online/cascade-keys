@@ -213,3 +213,87 @@ body {
   font-size: 1.6rem;
   letter-spacing: 0.15em;
 }
+
+.cascade-field {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+}
+
+/* The combo count sits over the top of the field, out of the way of the hit line. */
+.cascade-combo {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: "Fraunces", serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--accent);
+  pointer-events: none;
+}
+
+.cascade-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.cascade-beat {
+  display: flex;
+  justify-content: center;
+  height: 2.5rem;
+}
+
+.cascade-beat-dot {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: cascade-beat 0.4s ease-out forwards;
+}
+
+@keyframes cascade-beat {
+  from {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.6);
+    opacity: 0.2;
+  }
+}
+
+.cascade-tap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 6rem;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 0.35rem 0.4rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.leaderboard-kind {
+  color: var(--muted);
+}

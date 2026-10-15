@@ -199,3 +199,71 @@ describe("presses", () => {
     expect(engine.press(0)).toBe(false);
   });
 });
+
+describe("latency offset", () => {
+  it("judges a tap at T as if it were at T minus the offset", () => {
+    // Without an offset, a tap 130 ms late misses the window. With a 150 ms offset it lands as 20 ms late.
+    const late = new GameEngine([note(0, 1000)]);
+    late.advance(1130);
+    expect(late.press(0)).toBe(false);
+
+    const calibrated = new GameEngine([note(0, 1000)], { latencyOffsetMs: 150 });
+    calibrated.advance(1130);
+    expect(calibrated.press(0)).toBe(true);
+    expect(calibrated.hits).toBe(1);
+  });
+
+  it("shifts the miss deadline by the same offset", () => {
+    const engine = new GameEngine([note(0, 1000)], { latencyOffsetMs: 150 });
+    engine.advance(1220);
+    expect(engine.tiles[0]?.state).toBe("pending");
+    engine.advance(55);
+    expect(engine.tiles[0]?.state).toBe("missed");
+  });
+});
+
+describe("score and combo", () => {
+  it("scores 100 a hit, with the multiplier rising after ten hits in a row", () => {
+    const notes = Array.from({ length: 10 }, (_, i) => note(0, i * 500));
+    const engine = new GameEngine(notes);
+    playThrough(engine, notes);
+
+    expect(engine.score).toBe(9 * 100 + 200);
+    expect(engine.maxCombo).toBe(10);
+    expect(engine.result).toMatchObject({ score: 1100, maxCombo: 10 });
+  });
+
+  it("resets the combo on a miss but keeps the best", () => {
+    const notes = [note(0, 0), note(0, 500), note(0, 1000)];
+    const engine = new GameEngine(notes);
+    playThrough(engine, notes, (index) => index !== 1);
+
+    expect(engine.combo).toBe(1);
+    expect(engine.maxCombo).toBe(1);
+    expect(engine.score).toBe(200);
+  });
+});
+
+describe("endless mode", () => {
+  it("never ends on misses and keeps generating tiles", () => {
+    let time = 1000;
+    const engine = new GameEngine([], {
+      endless: { next: () => ({ lane: 0, time: (time += 400), duration: 100, type: "tap" }) },
+    });
+    for (let i = 0; i < 600; i++) engine.advance(100);
+
+    expect(engine.misses).toBeGreaterThan(MAX_MISSES);
+    expect(engine.result).toBeNull();
+    expect(engine.press(0)).toBe(false);
+  });
+
+  it("drops old resolved tiles so the list stays short", () => {
+    let time = 1000;
+    const engine = new GameEngine([], {
+      endless: { next: () => ({ lane: 0, time: (time += 400), duration: 100, type: "tap" }) },
+    });
+    for (let i = 0; i < 600; i++) engine.advance(100);
+
+    expect(engine.tiles.length).toBeLessThan(60);
+  });
+});
