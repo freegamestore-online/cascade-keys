@@ -122,10 +122,15 @@ body {
 .song-row {
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: 0.6rem 0.9rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .song-row + .song-row {
@@ -139,4 +144,72 @@ body {
 .song-composer {
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.cascade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.cascade-hud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  width: 100%;
+  max-width: 26rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* The playfield: four lanes that scale to the space left under the topbar. Touch is for the game, not scrolling. */
+.cascade-canvas {
+  width: 100%;
+  max-width: 26rem;
+  height: min(60dvh, 34rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  touch-action: none;
+}
+
+.cascade-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 26rem;
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  text-align: center;
+}
+
+.cascade-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.cascade-composer,
+.cascade-verdict {
+  margin: 0;
+  font-weight: 700;
+}
+
+.cascade-composer {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.cascade-stars {
+  margin: 0;
+  color: var(--accent);
+  font-size: 1.6rem;
+  letter-spacing: 0.15em;
 }
