@@ -11,6 +11,7 @@ import {
   saveDaily,
   SCORE_PREFIX,
   sortByScore,
+  starSummary,
 } from "./scores";
 
 const titles: Record<string, string> = { "ode-to-joy": "Ode to Joy", twinkle: "Twinkle" };
@@ -83,11 +84,31 @@ describe("readLeaderboard", () => {
     expect(rows.map((r) => r.score)).toEqual([1200, 1000, 800, 700]);
     expect(rows.map((r) => r.kind)).toEqual(["song", "daily", "endless", "song"]);
     expect(rows[1]).toMatchObject({ title: "Ode to Joy", date: "2026-10-12", stars: 3 });
-    expect(rows[2]?.title).toBe("Endless Mode");
+    expect(rows[2]?.title).toBe("Arcade");
   });
 
   it("is empty with no store or nothing saved", () => {
     expect(readLeaderboard(null, titleFor)).toEqual([]);
     expect(readLeaderboard(memoryStore(), titleFor)).toEqual([]);
+  });
+});
+
+describe("starSummary", () => {
+  it("adds up the best stars across songs and reports today's daily stars", () => {
+    const store = memoryStore();
+    saveBest(store, "ode-to-joy", { score: 700, stars: 2, date: "2026-10-10" });
+    saveBest(store, "twinkle", { score: 1200, stars: 3, date: "2026-10-11" });
+    saveDaily(store, { songId: "twinkle", score: 1200, stars: 3, date: "2026-10-16" });
+
+    expect(starSummary(store, ["ode-to-joy", "twinkle", "fur-elise"], "2026-10-16")).toEqual({
+      earned: 5,
+      possible: 9,
+      daily: 3,
+    });
+    expect(starSummary(store, ["twinkle"], "2026-10-17").daily).toBeNull();
+  });
+
+  it("is zero with no store", () => {
+    expect(starSummary(null, ["twinkle"], "2026-10-16")).toEqual({ earned: 0, possible: 3, daily: null });
   });
 });

@@ -297,3 +297,37 @@ body {
 .leaderboard-kind {
   color: var(--muted);
 }
+
+/* The store listing: artwork, title, copy, star result and the launch button. */
+.listing {
+  align-items: stretch;
+  text-align: left;
+}
+
+.listing-thumb {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.listing-title {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.listing-description {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.listing-stars {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: center;
+}

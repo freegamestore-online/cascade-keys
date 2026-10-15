@@ -51,7 +51,7 @@ export function Leaderboard({ onExit }: { onExit: () => void }) {
         )}
         <div className="cascade-actions">
           <GameButton variant="ghost" size="sm" onClick={onExit}>
-            Back to menu
+            Back
           </GameButton>
         </div>
       </div>

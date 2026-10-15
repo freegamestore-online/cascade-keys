@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Cascade Keys: four lanes of falling tiles above a glowing hit line">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f0f0f"/>
+      <stop offset="1" stop-color="#1a2e26"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#10b981" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#sky)"/>
+  <g stroke="#2d2d2d" stroke-width="2">
+    <line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="480" y1="0" x2="480" y2="360"/>
+  </g>
+  <g>
+    <rect x="166" y="36" width="148" height="34" rx="8" fill="#10b981"/>
+    <rect x="326" y="118" width="148" height="34" rx="8" fill="#60a5fa"/>
+    <rect x="486" y="200" width="148" height="34" rx="8" fill="#f59e0b"/>
+    <rect x="166" y="250" width="148" height="92" rx="8" fill="#10b981" opacity="0.85"/>
+    <rect x="326" y="170" width="148" height="48" rx="8" fill="#f472b6"/>
+    <rect x="6" y="90" width="148" height="34" rx="8" fill="#f472b6"/>
+  </g>
+  <ellipse cx="320" cy="306" rx="330" ry="28" fill="url(#glow)"/>
+  <rect x="0" y="302" width="640" height="4" fill="#9ca3af"/>
+  <text x="320" y="88" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="46" fill="#f5f5f5">Cascade Keys</text>
+  <text x="320" y="124" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-weight="500" font-size="18" fill="#9ca3af">Tap in time. Hear the piano.</text>
+</svg>

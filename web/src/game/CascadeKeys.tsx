@@ -57,10 +57,16 @@ function strikeLane(engine: GameEngine, lane: Lane, piano: PianoEngine, renderer
   renderer.flash(lane);
 }
 
+/** Time before a song's first note, so its tiles are already falling when the player must tap, in ms. */
+const SONG_LEAD_IN_MS = 2000;
+
 /** A new run's engine, with the latency offset saved by calibration. Null track means endless. */
 function createEngine(track: Track | null): GameEngine {
   const latencyOffsetMs = loadLatencyOffset(defaultStore());
-  if (track) return new GameEngine(track.notes, { latencyOffsetMs });
+  if (track) {
+    const notes = track.notes.map((note) => ({ ...note, time: note.time + SONG_LEAD_IN_MS }));
+    return new GameEngine(notes, { latencyOffsetMs });
+  }
   return new GameEngine([], { latencyOffsetMs, endless: new EndlessGenerator() });
 }
 
@@ -186,7 +192,7 @@ export function CascadeKeys({ track, daily = false, onExit, onFinish, onEndlessQ
   }
 
   const playing = game !== null && result === null;
-  const title = track?.title ?? "Endless Mode";
+  const title = track?.title ?? "Arcade";
 
   return (
     <div className="cascade">
@@ -252,7 +258,7 @@ export function CascadeKeys({ track, daily = false, onExit, onFinish, onEndlessQ
           <div className="cascade-actions">
             {!daily && <GameButton onClick={startRun}>Play again</GameButton>}
             <GameButton variant="ghost" size="sm" onClick={onExit}>
-              Back to menu
+              Done
             </GameButton>
           </div>
         </div>

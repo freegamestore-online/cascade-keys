@@ -63,6 +63,21 @@ export function saveDaily(store: KeyValueStore | null, entry: DailyScore): boole
   return true;
 }
 
+export interface StarSummary {
+  /** Stars earned across every song's best result. */
+  earned: number;
+  /** The most stars there are to earn. Three for each song. */
+  possible: number;
+  /** Stars from today's daily challenge, or null when it has not been played. */
+  daily: number | null;
+}
+
+/** The listing's star result: the stars earned across the song list, and today's daily stars. */
+export function starSummary(store: KeyValueStore | null, songIds: readonly string[], today: string): StarSummary {
+  const earned = songIds.reduce((sum, id) => sum + (loadBest(store, id)?.stars ?? 0), 0);
+  return { earned, possible: songIds.length * 3, daily: loadDaily(store, today)?.stars ?? null };
+}
+
 /** Highest score first. Equal scores put the newer date first. */
 export function sortByScore(rows: readonly LeaderboardRow[]): LeaderboardRow[] {
   return [...rows].sort((a, b) => b.score - a.score || b.date.localeCompare(a.date));
@@ -84,7 +99,7 @@ export function readLeaderboard(store: KeyValueStore | null, titleFor: (songId: 
       rows.push({
         kind: endless ? "endless" : "song",
         songId,
-        title: endless ? "Endless Mode" : titleFor(songId),
+        title: endless ? "Arcade" : titleFor(songId),
         ...saved,
       });
     } else if (key.startsWith(DAILY_PREFIX)) {

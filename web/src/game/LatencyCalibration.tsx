@@ -141,7 +141,7 @@ export function LatencyCalibration({ onExit }: { onExit: () => void }) {
             Reset
           </GameButton>
           <GameButton variant="ghost" size="sm" onClick={onExit}>
-            Back to menu
+            Back
           </GameButton>
         </div>
       </div>
