@@ -1,20 +1,18 @@
-import { GameShell, GameTopbar, GameAuth } from "@freegamestore/games";
+import { GameShell } from "./GameShell";
+import { tracks } from "./data/tracks";
 
 export default function App() {
   return (
-    <GameShell topbar={<GameTopbar title="Cascade Keys" score={0} />}>
-      <GameAuth />
-      <div className="flex flex-col items-center justify-center h-full gap-4">
-        <h1
-          className="text-3xl font-bold"
-          style={{ fontFamily: "Fraunces, serif" }}
-        >
-          Cascade Keys
-        </h1>
-        <p style={{ color: "var(--muted)" }}>
-          Your game will appear here once it&rsquo;s built.
-        </p>
-      </div>
+    <GameShell>
+      <h1 className="song-heading">Choose a song</h1>
+      <ul className="song-list">
+        {tracks.map((track) => (
+          <li key={track.id} className="song-row">
+            <span className="song-title">{track.title}</span>
+            <span className="song-composer">{track.composer}</span>
+          </li>
+        ))}
+      </ul>
     </GameShell>
   );
 }

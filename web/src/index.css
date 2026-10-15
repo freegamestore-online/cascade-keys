@@ -80,3 +80,63 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+/* Play area: fills the space under the topbar and scrolls within itself on short phones. */
+.play-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.store-link {
+  color: var(--muted);
+  font-size: 0.7rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.store-link:hover {
+  text-decoration: underline;
+}
+
+.song-heading {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.song-list {
+  width: 100%;
+  max-width: 32rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.song-row {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.song-row + .song-row {
+  margin-top: 0.5rem;
+}
+
+.song-title {
+  font-weight: 700;
+}
+
+.song-composer {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
