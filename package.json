@@ -1,14 +1,14 @@
 {
-  "name": "APPNAME",
+  "name": "cascade-keys",
   "private": true,
   "packageManager": "pnpm@10.30.3",
   "engines": { "node": ">=22" },
   "pnpm": { "onlyBuiltDependencies": ["esbuild"] },
   "scripts": {
-    "dev": "pnpm --filter @APPNAME/web dev",
-    "build": "pnpm --filter @APPNAME/web build",
-    "preview": "pnpm --filter @APPNAME/web preview",
-    "typecheck": "pnpm --filter @APPNAME/web exec tsc -b",
-    "test": "pnpm --filter @APPNAME/web test"
+    "dev": "pnpm --filter @cascade-keys/web dev",
+    "build": "pnpm --filter @cascade-keys/web build",
+    "preview": "pnpm --filter @cascade-keys/web preview",
+    "typecheck": "pnpm --filter @cascade-keys/web exec tsc -b",
+    "test": "pnpm --filter @cascade-keys/web test"
   }
 }
